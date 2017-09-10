@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "ncatz.jvm.jodergenerator"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile 'com.github.linger1216:labelview:v1.1.2'
+    //https://github.com/linger1216/labelview
+
+    compile 'com.sdsmdg.harjot:rotatingtext:1.0.2'
+    //https://github.com/sdsmdg/RotatingText
+
+    compile 'com.github.Yalantis:GuillotineMenu-Android:1.2'
+    //https://github.com/Yalantis/GuillotineMenu-Android
+
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+    //https://github.com/futuresimple/android-floating-action-button
+
+    compile 'com.github.bassaer:materialdesigncolors:1.0.0'
+    //https://github.com/bassaer/MaterialDesignColors
+
+    compile "org.jetbrains.anko:anko:0.10.1"
+    //https://github.com/Kotlin/anko
+}
