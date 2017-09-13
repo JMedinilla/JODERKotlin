@@ -12,10 +12,7 @@ import android.support.v7.widget.Toolbar
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.lid.lib.LabelButtonView
 import com.wang.avi.AVLoadingIndicatorView
@@ -40,8 +37,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var guillotineAnimation: GuillotineAnimation
     private lateinit var guillotineTwK: LinearLayout
     private lateinit var guillotineTwA: LinearLayout
-    private lateinit var guillotineGitK: LinearLayout
-    private lateinit var guillotineGitA: LinearLayout
+    private lateinit var guillotineGitK: ImageView
+    private lateinit var guillotineGitA: ImageView
 
     private var guillotineOpen: Boolean = false
 
@@ -112,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btnGenerate.setOnLongClickListener {
-            txtJODER.text = ""
+            txtJODER.text = "- - -"
             true
         }
 
@@ -135,8 +132,8 @@ class MainActivity : AppCompatActivity() {
 
         guillotineTwK = guillotine.findViewById(R.id.twk)
         guillotineTwA = guillotine.findViewById(R.id.twa)
-        guillotineGitK = guillotine.findViewById(R.id.gitk)
-        guillotineGitA = guillotine.findViewById(R.id.gita)
+        guillotineGitK = guillotine.findViewById(R.id.imgJM)
+        guillotineGitA = guillotine.findViewById(R.id.imgAPU)
         guillotineTwK.setOnClickListener { open("https://twitter.com/KastJMD") }
         guillotineGitK.setOnClickListener { open("https://github.com/JMedinilla/JODERKotlin") }
         guillotineTwA.setOnClickListener { open("https://twitter.com/AlexPowerUp") }
