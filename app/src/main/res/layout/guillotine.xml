@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/guillotine_background"
+    android:background="@color/red_900"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -10,7 +12,7 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/guillotine_background"
+        android:background="@color/red_900"
         android:minHeight="?attr/actionBarSize">
 
         <LinearLayout
@@ -20,127 +22,190 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/closeHamburguer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/closehamburguer"
-                android:src="@drawable/arrow_top_right" />
+                android:src="@drawable/arrow_top_left" />
 
             <ncatz.jvm.jodergenerator.CanaroText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
                 android:text="@string/jodergenerator"
                 android:textSize="14sp" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
-        <LinearLayout
-            android:id="@+id/guillotineInfo"
-            android:layout_width="280dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/information_outline" />
-
-            <ncatz.jvm.jodergenerator.CanaroText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/guillotine_small_margin"
-                android:layout_marginStart="@dimen/guillotine_small_margin"
-                android:text="@string/guillotineIinfo"
-                android:textSize="@dimen/guillotine_item_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/guillotineWord"
-            android:layout_width="280dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/textbox" />
-
-            <ncatz.jvm.jodergenerator.CanaroText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/guillotine_small_margin"
-                android:layout_marginStart="@dimen/guillotine_small_margin"
-                android:text="@string/guillotineWord"
-                android:textSize="@dimen/guillotine_item_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/guillotineOptions"
-            android:layout_width="280dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/settings" />
-
-            <ncatz.jvm.jodergenerator.CanaroText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/guillotine_small_margin"
-                android:layout_marginStart="@dimen/guillotine_small_margin"
-                android:text="@string/guillotineOption"
-                android:textSize="@dimen/guillotine_item_text_size" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ncatz.jvm.jodergenerator.CanaroText
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/quoteMessage"
+            android:text="@string/info"
             android:textSize="16sp"
-            android:textStyle="italic" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="match_parent"
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="end"
-            android:text="@string/quoteAuthor"
-            android:textSize="16sp"
-            android:textStyle="italic" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/app_name"
+            android:padding="12dp"
+            android:src="@drawable/jmedinilla"
+            app:layout_constraintBottom_toTopOf="@+id/twk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+        <LinearLayout
+            android:id="@+id/twk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/gitk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/tw_icon" />
+
+            <ncatz.jvm.jodergenerator.CanaroText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/twkast" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gitk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/git_icon" />
+
+            <ncatz.jvm.jodergenerator.CanaroText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gitkast" />
+        </LinearLayout>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/app_name"
+            android:padding="12dp"
+            android:src="@drawable/alexpowerup"
+            app:layout_constraintBottom_toTopOf="@+id/twa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+        <LinearLayout
+            android:id="@+id/twa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/gita"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/tw_icon" />
+
+            <ncatz.jvm.jodergenerator.CanaroText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/twalex" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gita"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/git_icon" />
+
+            <ncatz.jvm.jodergenerator.CanaroText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gitalex" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>

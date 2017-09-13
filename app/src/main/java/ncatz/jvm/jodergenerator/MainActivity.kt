@@ -5,15 +5,20 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.Toast
 import com.getbase.floatingactionbutton.FloatingActionButton
+import com.lid.lib.LabelButtonView
+import com.wang.avi.AVLoadingIndicatorView
 import com.yalantis.guillotine.animation.GuillotineAnimation
 import com.yalantis.guillotine.interfaces.GuillotineListener
 
@@ -24,18 +29,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var hamburguer: View
 
     private lateinit var txtJODER: CanaroText
-    private lateinit var btnGenerate: Button
+    private lateinit var btnGenerate: LabelButtonView
+    private lateinit var avLoading: AVLoadingIndicatorView
     private lateinit var btnShare: FloatingActionButton
     private lateinit var btnCopy: FloatingActionButton
     private lateinit var edtMin: EditText
     private lateinit var edtMax: EditText
 
-    private lateinit var guillotineInfo: LinearLayout
-    private lateinit var guillotineWord: LinearLayout
-    private lateinit var guillotineOptions: LinearLayout
-
     private lateinit var guillotine: View
     private lateinit var guillotineAnimation: GuillotineAnimation
+    private lateinit var guillotineTwK: LinearLayout
+    private lateinit var guillotineTwA: LinearLayout
+    private lateinit var guillotineGitK: LinearLayout
+    private lateinit var guillotineGitA: LinearLayout
 
     private var guillotineOpen: Boolean = false
 
@@ -56,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         txtJODER = findViewById(R.id.txtJODER)
         txtJODER.movementMethod = ScrollingMovementMethod()
+        avLoading = findViewById(R.id.avLoading)
         btnGenerate = findViewById(R.id.btnGenerate)
         btnShare = findViewById(R.id.actionShare)
         btnCopy = findViewById(R.id.actionCopy)
@@ -97,7 +104,11 @@ class MainActivity : AppCompatActivity() {
                 max < 5 -> Toast.makeText(this, "Un JODER™ tine mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
                 max > 15000 -> Toast.makeText(this, "Un JODER™ tine mínimo 15.000 caracteres", Toast.LENGTH_SHORT).show()
                 min > max -> Toast.makeText(this, "El mínimo es mayor que el máximo", Toast.LENGTH_SHORT).show()
-                else -> JODER.generate(min, max, this)
+                else -> {
+                    btnGenerate.isEnabled = false
+                    btnGenerate.visibility = View.GONE
+                    JODER.generate(min, max, this)
+                }
             }
         }
         btnGenerate.setOnLongClickListener {
@@ -122,27 +133,18 @@ class MainActivity : AppCompatActivity() {
                 .setClosedOnStart(true)
                 .build()
 
-        guillotineInfo = findViewById(R.id.guillotineInfo)
-        guillotineWord = findViewById(R.id.guillotineWord)
-        guillotineOptions = findViewById(R.id.guillotineOptions)
-
-        guillotineInfo.setOnClickListener {
-            startActivity(Intent(this, InfoActivity::class.java))
-        }
-        guillotineWord.setOnClickListener {
-            Toast.makeText(this, "Word", Toast.LENGTH_SHORT).show()
-        }
-        guillotineOptions.setOnClickListener {
-            showOptions()
-        }
+        guillotineTwK = guillotine.findViewById(R.id.twk)
+        guillotineTwA = guillotine.findViewById(R.id.twa)
+        guillotineGitK = guillotine.findViewById(R.id.gitk)
+        guillotineGitA = guillotine.findViewById(R.id.gita)
+        guillotineTwK.setOnClickListener { open("https://twitter.com/KastJMD") }
+        guillotineGitK.setOnClickListener { open("https://github.com/JMedinilla/JODERKotlin") }
+        guillotineTwA.setOnClickListener { open("https://twitter.com/AlexPowerUp") }
+        guillotineGitA.setOnClickListener { open("https://github.com/alexpowerup/JODERGenerator") }
     }
 
-    private fun showOptions() {
-        val dialog = AlertDialog.Builder(this)
-        dialog.setTitle("¿Opciones, cómo?")
-        dialog.setMessage("Pero qué opciones quieres, si esto solo hace JODERes, papafrita")
-        dialog.setPositiveButton("JODER", null)
-        dialog.show()
+    private fun open(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
     override fun onBackPressed() {
@@ -154,7 +156,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         fun setJODER(joder: String, mainActivity: MainActivity) {
-            mainActivity.txtJODER.text = joder
+            mainActivity.runOnUiThread {
+                mainActivity.txtJODER.text = joder
+                mainActivity.btnGenerate.visibility = View.VISIBLE
+                mainActivity.btnGenerate.isEnabled = true
+            }
         }
     }
 }

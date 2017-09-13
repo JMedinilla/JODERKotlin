@@ -1,4 +1,4 @@
-<!-- drawable/file_outline.xml -->
+<!-- drawable/arrow_top_left.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
@@ -6,5 +6,5 @@
     android:viewportWidth="24">
     <path
         android:fillColor="#FFF"
-        android:pathData="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M11,4H6V20H11L18,20V11H11V4Z" />
+        android:pathData="M19,17.59L17.59,19L7,8.41V15H5V5H15V7H8.41L19,17.59Z" />
 </vector>

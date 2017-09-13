@@ -1,21 +1,29 @@
 package ncatz.jvm.jodergenerator
 
+import android.annotation.SuppressLint
+import kotlinx.coroutines.experimental.launch
 import java.util.*
+import java.util.concurrent.ForkJoinPool
+import kotlin.concurrent.thread
 
 class JODER {
     companion object {
-        fun generate(min: Int, max: Int, mainActivity: MainActivity) {
-            var J = ""
-            var O = ""
-            var D = ""
-            var E = ""
-            var R = ""
+        @SuppressLint("StaticFieldLeak")
+        private lateinit var main: MainActivity
 
-            var Jbool = false
-            var Obool = false
-            var Dbool = false
-            var Ebool = false
-            var Rbool = false
+        private var J = ""
+        private var O = ""
+        private var D = ""
+        private var E = ""
+        private var R = ""
+
+        private var JODERbools: BooleanArray = booleanArrayOf(false, false, false, false, false)
+
+        fun generate(min: Int, max: Int, mainActivity: MainActivity) {
+            main = mainActivity
+
+            JODERbools = booleanArrayOf(false, false, false, false, false)
+            J = ""; O = ""; D = ""; E = ""; R = ""
 
             val Jcount: Int
             val Ocount: Int
@@ -35,54 +43,60 @@ class JODER {
             toUse -= Ecount
             Rcount = toUse
 
-            var j = 0
-            while (j <= Jcount) {
-                J += "J"
-                j++
-            }
-            Jbool = true
-            if (Jbool && Obool && Dbool && Ebool && Rbool) {
-                MainActivity.setJODER(J + O + D + E + R, mainActivity)
-            }
-
-            var o = 0
-            while (o <= Ocount) {
-                O += "O"
-                o++
-            }
-            Obool = true
-            if (Jbool && Obool && Dbool && Ebool && Rbool) {
-                MainActivity.setJODER(J + O + D + E + R, mainActivity)
+            thread(start = true) {
+                var j = 0
+                while (j <= Jcount) {
+                    J += "J"
+                    j++
+                }
+                JODERbools[0] = true
+                checkAllLetters()
             }
 
-            var d = 0
-            while (d <= Dcount) {
-                D += "D"
-                d++
-            }
-            Dbool = true
-            if (Jbool && Obool && Dbool && Ebool && Rbool) {
-                MainActivity.setJODER(J + O + D + E + R, mainActivity)
-            }
-
-            var e = 0
-            while (e <= Ecount) {
-                E += "E"
-                e++
-            }
-            Ebool = true
-            if (Jbool && Obool && Dbool && Ebool && Rbool) {
-                MainActivity.setJODER(J + O + D + E + R, mainActivity)
+            thread(start = true) {
+                var o = 0
+                while (o <= Ocount) {
+                    O += "O"
+                    o++
+                }
+                JODERbools[1] = true
+                checkAllLetters()
             }
 
-            var r = 0
-            while (r <= Rcount) {
-                R += "R"
-                r++
+            thread(start = true) {
+                var d = 0
+                while (d <= Dcount) {
+                    D += "D"
+                    d++
+                }
+                JODERbools[2] = true
+                checkAllLetters()
             }
-            Rbool = true
-            if (Jbool && Obool && Dbool && Ebool && Rbool) {
-                MainActivity.setJODER(J + O + D + E + R, mainActivity)
+
+            thread(start = true) {
+                var e = 0
+                while (e <= Ecount) {
+                    E += "E"
+                    e++
+                }
+                JODERbools[3] = true
+                checkAllLetters()
+            }
+
+            thread(start = true) {
+                var r = 0
+                while (r <= Rcount) {
+                    R += "R"
+                    r++
+                }
+                JODERbools[4] = true
+                checkAllLetters()
+            }
+        }
+
+        private fun checkAllLetters() {
+            if (!JODERbools.contains(false)) {
+                MainActivity.setJODER(J + O + D + E + R, main)
             }
         }
     }
