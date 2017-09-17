@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var guillotine: View
     private lateinit var guillotineAnimation: GuillotineAnimation
-    private lateinit var guillotineTwK: LinearLayout
     private lateinit var guillotineTwA: LinearLayout
     private lateinit var guillotineGitK: ImageView
     private lateinit var guillotineGitA: ImageView
@@ -130,11 +129,9 @@ class MainActivity : AppCompatActivity() {
                 .setClosedOnStart(true)
                 .build()
 
-        guillotineTwK = guillotine.findViewById(R.id.twk)
         guillotineTwA = guillotine.findViewById(R.id.twa)
         guillotineGitK = guillotine.findViewById(R.id.imgJM)
         guillotineGitA = guillotine.findViewById(R.id.imgAPU)
-        guillotineTwK.setOnClickListener { open("https://twitter.com/KastJMD") }
         guillotineGitK.setOnClickListener { open("https://github.com/JMedinilla/JODERKotlin") }
         guillotineTwA.setOnClickListener { open("https://twitter.com/AlexPowerUp") }
         guillotineGitA.setOnClickListener { open("https://github.com/alexpowerup/JODERGenerator") }

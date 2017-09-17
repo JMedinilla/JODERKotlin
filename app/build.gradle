@@ -33,12 +33,10 @@ allprojects {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.0.2'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.github.linger1216:labelview:v1.1.2'
     //https://github.com/linger1216/labelview
-    implementation project(':guillotineMenu')
-    //https://github.com/Yalantis/GuillotineMenu-Android
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     //https://github.com/futuresimple/android-floating-action-button
     implementation 'com.github.bassaer:materialdesigncolors:1.0.0'
@@ -47,4 +45,6 @@ dependencies {
     //https://github.com/81813780/AVLoadingIndicatorView
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18'
     //https://github.com/Kotlin/kotlinx.coroutines
+    implementation project(':guillotineMenu')
+    //https://github.com/Yalantis/GuillotineMenu-Android
 }
