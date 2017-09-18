@@ -6,4 +6,6 @@
 
     <color name="guillotine_background">@color/red_900</color>
 
+    <color name="showcase">#DDD32F2F</color>
+
 </resources>

@@ -5,8 +5,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.method.ScrollingMovementMethod
@@ -18,6 +20,9 @@ import com.lid.lib.LabelButtonView
 import com.wang.avi.AVLoadingIndicatorView
 import com.yalantis.guillotine.animation.GuillotineAnimation
 import com.yalantis.guillotine.interfaces.GuillotineListener
+import kotlinx.android.synthetic.main.guillotine.*
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,15 +41,43 @@ class MainActivity : AppCompatActivity() {
     private lateinit var guillotine: View
     private lateinit var guillotineAnimation: GuillotineAnimation
     private lateinit var guillotineTwA: LinearLayout
-    private lateinit var guillotineGitK: ImageView
-    private lateinit var guillotineGitA: ImageView
+    private lateinit var guillotineGitKImg: ImageView
+    private lateinit var guillotineGitK: LinearLayout
+    private lateinit var guillotineGitA: LinearLayout
+
+    private var sequenceMain: MaterialShowcaseSequence? = null
+    private var sequenceGuillotine: MaterialShowcaseSequence? = null
 
     private var guillotineOpen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         initViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (sequenceMain == null) {
+            val config = ShowcaseConfig()
+            config.delay = 100
+            config.fadeDuration = 300
+            config.contentTextColor = Color.WHITE
+            config.dismissTextColor = Color.WHITE
+            config.renderOverNavigationBar = true
+            config.maskColor = ContextCompat.getColor(this, R.color.showcase)
+            sequenceMain = MaterialShowcaseSequence(this, "id_showcase")
+            sequenceMain!!.setConfig(config)
+            sequenceMain!!.addSequenceItem(btnGenerate, "Para generar un JODER™ solo tienes que pulsar sobre este señor cabreado", "SIGUIENTE")
+            sequenceMain!!.addSequenceItem(edtMin, "El mínimo de caracteres lo puedes indicar aquí (un JODER™ tiene al menos 5 caracteres)", "SIGUIENTE")
+            sequenceMain!!.addSequenceItem(edtMax, "Y el máximo, lo eliges aquí (un JODER™ tiene máximo 15.000 caracteres)", "SIGUIENTE")
+            sequenceMain!!.addSequenceItem(btnShare, "Con este botón puedes compartir tu exclusivo JODER™ con el resto del mundo", "SIGUIENTE")
+            sequenceMain!!.addSequenceItem(btnCopy, "Y con este puedes copiarlo al portapapeles, en caso de que quieras compartirlo manualmente", "SIGUIENTE")
+            sequenceMain!!.addSequenceItem(hamburguer, "Por último, aquí arriba podrás ver información sobre la aplicación", "JODER")
+            sequenceMain!!.start()
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -66,6 +99,9 @@ class MainActivity : AppCompatActivity() {
         edtMax = findViewById(R.id.edtMax)
 
         btnCopy.setOnClickListener {
+            if (guillotineOpen)
+                return@setOnClickListener
+
             val joder = txtJODER.text.toString()
             when (joder) {
                 "- - -" -> Toast.makeText(this, "Genera un JODER™ para copiarlo", Toast.LENGTH_SHORT).show()
@@ -78,6 +114,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btnShare.setOnClickListener {
+            if (guillotineOpen)
+                return@setOnClickListener
+
             val joder = txtJODER.text.toString()
             when (joder) {
                 "- - -" -> Toast.makeText(this, "Genera un JODER™ para compartirlo", Toast.LENGTH_SHORT).show()
@@ -92,6 +131,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnGenerate.setOnClickListener {
+            if (guillotineOpen)
+                return@setOnClickListener
+
             val min = Integer.parseInt(edtMin.text.toString())
             val max = Integer.parseInt(edtMax.text.toString())
             when {
@@ -108,7 +150,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btnGenerate.setOnLongClickListener {
-            txtJODER.text = "- - -"
+            if (!guillotineOpen) {
+                txtJODER.text = "- - -"
+            }
             true
         }
 
@@ -120,18 +164,40 @@ class MainActivity : AppCompatActivity() {
                 .setGuillotineListener(object : GuillotineListener {
                     override fun onGuillotineClosed() {
                         guillotineOpen = false
+
+                        edtMax.isEnabled = true
+                        edtMin.isEnabled = true
                     }
 
                     override fun onGuillotineOpened() {
                         guillotineOpen = true
+
+                        edtMax.isEnabled = false
+                        edtMin.isEnabled = false
+
+                        val config = ShowcaseConfig()
+                        config.delay = 100
+                        config.fadeDuration = 300
+                        config.contentTextColor = Color.WHITE
+                        config.dismissTextColor = Color.WHITE
+                        config.renderOverNavigationBar = true
+                        config.maskColor = ContextCompat.getColor(applicationContext, R.color.showcase)
+                        sequenceGuillotine = MaterialShowcaseSequence(this@MainActivity, "id_guillotine")
+                        sequenceGuillotine!!.setConfig(config)
+                        sequenceGuillotine!!.addSequenceItem(imgAPU, "Este subnormal es el creador original de JODERGenerator para Windows, debajo tienes su Twitter y el código fuente (C#) con el ejecutable para Windows", "SIGUIENTE")
+                        sequenceGuillotine!!.addSequenceItem(canaroGitK, "Si te interesa ver cómo está hecha esta aplicación (en Kotlin), puedes verlo aquí", "JODER")
+                        sequenceGuillotine!!.start()
                     }
                 })
                 .setClosedOnStart(true)
                 .build()
 
         guillotineTwA = guillotine.findViewById(R.id.twa)
-        guillotineGitK = guillotine.findViewById(R.id.imgJM)
-        guillotineGitA = guillotine.findViewById(R.id.imgAPU)
+        guillotineGitKImg = guillotine.findViewById(R.id.imgJM)
+        guillotineGitK = guillotine.findViewById(R.id.gitk)
+        guillotineGitA = guillotine.findViewById(R.id.gita)
+
+        guillotineGitKImg.setOnClickListener { open("https://github.com/JMedinilla/JODERKotlin") }
         guillotineGitK.setOnClickListener { open("https://github.com/JMedinilla/JODERKotlin") }
         guillotineTwA.setOnClickListener { open("https://twitter.com/AlexPowerUp") }
         guillotineGitA.setOnClickListener { open("https://github.com/alexpowerup/JODERGenerator") }
@@ -142,9 +208,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        when {
-            guillotineOpen -> guillotineAnimation.close()
-            else -> super.onBackPressed()
+        if (sequenceGuillotine != null && sequenceGuillotine!!.hasFired()) {
+            when {
+                guillotineOpen -> guillotineAnimation.close()
+                else -> super.onBackPressed()
+            }
+        } else if (sequenceGuillotine == null) {
+            when {
+                guillotineOpen -> guillotineAnimation.close()
+                else -> super.onBackPressed()
+            }
         }
     }
 
