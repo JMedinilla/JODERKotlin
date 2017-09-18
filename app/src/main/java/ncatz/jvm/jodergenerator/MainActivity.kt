@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.lid.lib.LabelButtonView
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             sequenceMain!!.addSequenceItem(edtMin, "El mínimo de caracteres lo puedes indicar aquí (un JODER™ tiene al menos 5 caracteres)", "SIGUIENTE")
             sequenceMain!!.addSequenceItem(edtMax, "Y el máximo, lo eliges aquí (un JODER™ tiene máximo 15.000 caracteres)", "SIGUIENTE")
             sequenceMain!!.addSequenceItem(btnShare, "Con este botón puedes compartir tu exclusivo JODER™ con el resto del mundo", "SIGUIENTE")
-            sequenceMain!!.addSequenceItem(btnCopy, "Y con este puedes copiarlo al portapapeles, en caso de que quieras compartirlo manualmente", "SIGUIENTE")
+            sequenceMain!!.addSequenceItem(btnCopy, "Y con este copiarlo para compartirlo manualmente", "SIGUIENTE")
             sequenceMain!!.addSequenceItem(hamburguer, "Por último, aquí arriba podrás ver información sobre la aplicación", "JODER")
             sequenceMain!!.start()
         }
@@ -133,6 +134,9 @@ class MainActivity : AppCompatActivity() {
         btnGenerate.setOnClickListener {
             if (guillotineOpen)
                 return@setOnClickListener
+
+            val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
             val min = Integer.parseInt(edtMin.text.toString())
             val max = Integer.parseInt(edtMax.text.toString())
