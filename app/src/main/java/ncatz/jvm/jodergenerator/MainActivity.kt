@@ -138,8 +138,14 @@ class MainActivity : AppCompatActivity() {
             val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputManager.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
-            val min = Integer.parseInt(edtMin.text.toString())
-            val max = Integer.parseInt(edtMax.text.toString())
+            var min = 0
+            var max = 0
+            if (edtMin.text.toString() != "") {
+                min = Integer.parseInt(edtMin.text.toString())
+            }
+            if (edtMax.text.toString() != "") {
+                max = Integer.parseInt(edtMax.text.toString())
+            }
             when {
                 min < 5 -> Toast.makeText(this, "Un JODER™ tine mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
                 min > 15000 -> Toast.makeText(this, "Un JODER™ tine máximo 15.000 caracteres", Toast.LENGTH_SHORT).show()
