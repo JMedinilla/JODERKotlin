@@ -5,14 +5,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "ncatz.jvm.jodergenerator"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 27
+        versionCode 2
+        versionName '1.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,6 +20,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 
@@ -33,22 +35,13 @@ allprojects {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
     implementation 'com.github.linger1216:labelview:v1.1.2'
-    //https://github.com/linger1216/labelview
     implementation 'com.getbase:floatingactionbutton:1.10.1'
-    //https://github.com/futuresimple/android-floating-action-button
     implementation 'com.github.bassaer:materialdesigncolors:1.0.0'
-    //https://github.com/bassaer/MaterialDesignColors
     implementation 'com.wang.avi:library:2.1.3'
-    //https://github.com/81813780/AVLoadingIndicatorView
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18'
-    //https://github.com/Kotlin/kotlinx.coroutines
     implementation 'com.github.deano2390:MaterialShowcaseView:1.1.0'
-    //https://github.com/deano2390/MaterialShowcaseView
     implementation project(':guillotineMenu')
-    //https://github.com/Yalantis/GuillotineMenu-Android
-
 }

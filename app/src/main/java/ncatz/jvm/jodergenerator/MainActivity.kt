@@ -147,21 +147,23 @@ class MainActivity : AppCompatActivity() {
                 max = Integer.parseInt(edtMax.text.toString())
             }
             when {
-                min < 5 -> Toast.makeText(this, "Un JODER™ tine mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
-                min > 15000 -> Toast.makeText(this, "Un JODER™ tine máximo 15.000 caracteres", Toast.LENGTH_SHORT).show()
-                max < 5 -> Toast.makeText(this, "Un JODER™ tine mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
-                max > 15000 -> Toast.makeText(this, "Un JODER™ tine máximo 15.000 caracteres", Toast.LENGTH_SHORT).show()
+                min < 5 -> Toast.makeText(this, "Un JODER™ tiene mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
+                min > 15000 -> Toast.makeText(this, "Un JODER™ tiene máximo 15.000 caracteres", Toast.LENGTH_SHORT).show()
+                max < 5 -> Toast.makeText(this, "Un JODER™ tiene mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
+                max > 15000 -> Toast.makeText(this, "Un JODER™ tiene máximo 15.000 caracteres", Toast.LENGTH_SHORT).show()
                 min > max -> Toast.makeText(this, "El mínimo es mayor que el máximo", Toast.LENGTH_SHORT).show()
                 else -> {
                     btnGenerate.isEnabled = false
                     btnGenerate.visibility = View.GONE
                     JODER.generate(min, max, this)
+                    txtJODER.scrollTo(0, 0)
                 }
             }
         }
         btnGenerate.setOnLongClickListener {
             if (!guillotineOpen) {
                 txtJODER.text = "- - -"
+                txtJODER.scrollTo(0, 0)
             }
             true
         }
