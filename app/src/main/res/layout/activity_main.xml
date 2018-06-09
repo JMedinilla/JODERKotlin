@@ -64,7 +64,7 @@
                 <ImageView
                     android:id="@+id/activityMain_toolbarInfo"
                     android:layout_width="?attr/actionBarSize"
-                    android:layout_height="48dp"
+                    android:layout_height="36dp"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/information_variant"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -74,162 +74,152 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/activityMain_mainLayout"
+    <TextView
+        android:id="@+id/activityMain_JODER"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="14dp"
+        android:background="@drawable/border"
+        android:fontFamily="@font/canaro_extra_bold"
+        android:gravity="center"
+        android:padding="14dp"
+        android:scrollbars="vertical"
+        android:text="@string/JODERDefault"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityMain_guideline_3"
+        app:layout_constraintEnd_toStartOf="@+id/activityMain_actionLayout"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityMain_appBarLayout" />
+
+    <LinearLayout
+        android:id="@+id/activityMain_actionLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/activityMain_JODER"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityMain_appBarLayout">
 
-        <TextView
-            android:id="@+id/activityMain_JODER"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="14dp"
-            android:background="@drawable/border"
-            android:fontFamily="@font/canaro_extra_bold"
-            android:gravity="center"
-            android:padding="14dp"
-            android:scrollbars="vertical"
-            android:text="@string/JODERDefault"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/activityMain_guideline_3"
-            app:layout_constraintEnd_toStartOf="@+id/activityMain_actionLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/activityMain_actionLayout"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activityMain_actionShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/activityMain_JODER"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/activityMain_JODER">
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="7dp"
+            android:src="@drawable/share_variant"
+            app:fabSize="mini"
+            app:rippleColor="@color/colorPrimaryDark" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/activityMain_actionShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginBottom="7dp"
-                android:src="@drawable/share_variant"
-                app:fabSize="mini"
-                app:rippleColor="@color/colorPrimaryDark" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/activityMain_actionCopy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginRight="14dp"
-                android:src="@drawable/clipboard_outline"
-                app:fabSize="mini"
-                app:rippleColor="@color/colorPrimaryDark" />
-        </LinearLayout>
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/activityMain_avLoading"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="8dp"
-            app:indicatorColor="@color/colorPrimary"
-            app:indicatorName="LineSpinFadeLoaderIndicator"
-            app:layout_constraintBottom_toBottomOf="@+id/activityMain_generate"
-            app:layout_constraintEnd_toEndOf="@+id/activityMain_generate"
-            app:layout_constraintStart_toStartOf="@+id/activityMain_generate"
-            app:layout_constraintTop_toTopOf="@+id/activityMain_generate" />
-
-        <com.lid.lib.LabelButtonView
-            android:id="@+id/activityMain_generate"
-            android:layout_width="82dp"
-            android:layout_height="82dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/icon"
-            app:label_backgroundColor="@color/colorPrimary"
-            app:label_distance="24dp"
-            app:label_height="24dp"
-            app:label_orientation="RIGHT_BOTTOM"
-            app:label_text="JODER"
-            app:label_textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/activityMain_generateTxtMax"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activityMain_JODER" />
-
-        <TextView
-            android:id="@+id/activityMain_generateTxtMin"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activityMain_actionCopy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/canaro_extra_bold"
-            android:text="@string/txtMin"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMin"
-            app:layout_constraintStart_toStartOf="@+id/activityMain_generateEdtMin" />
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/clipboard_outline"
+            app:fabSize="mini"
+            app:rippleColor="@color/colorPrimaryDark" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/activityMain_generateTxtMax"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/canaro_extra_bold"
-            android:text="@string/txtMax"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMax"
-            app:layout_constraintStart_toStartOf="@+id/activityMain_generateEdtMax" />
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/activityMain_avLoading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="LineSpinFadeLoaderIndicator"
+        app:layout_constraintBottom_toBottomOf="@+id/activityMain_generate"
+        app:layout_constraintEnd_toEndOf="@+id/activityMain_generate"
+        app:layout_constraintStart_toStartOf="@+id/activityMain_generate"
+        app:layout_constraintTop_toTopOf="@+id/activityMain_generate" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/activityMain_generateEdtMin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:fontFamily="@font/canaro_extra_bold"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="@string/edtDefault"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activityMain_guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/activityMain_guideline_2" />
+    <com.lid.lib.LabelButtonView
+        android:id="@+id/activityMain_generate"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/icon"
+        app:label_backgroundColor="@color/colorPrimary"
+        app:label_distance="24dp"
+        app:label_height="24dp"
+        app:label_orientation="RIGHT_BOTTOM"
+        app:label_text="JODER"
+        app:label_textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityMain_generateTxtMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityMain_JODER" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/activityMain_generateEdtMax"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:fontFamily="@font/canaro_extra_bold"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="@string/edtDefault"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/activityMain_guideline"
-            app:layout_constraintTop_toTopOf="@+id/activityMain_guideline_2" />
+    <TextView
+        android:id="@+id/activityMain_generateTxtMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/canaro_extra_bold"
+        android:text="@string/txtMin"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMin"
+        app:layout_constraintStart_toStartOf="@+id/activityMain_generateEdtMin" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/activityMain_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+    <TextView
+        android:id="@+id/activityMain_generateTxtMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/canaro_extra_bold"
+        android:text="@string/txtMax"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMax"
+        app:layout_constraintStart_toStartOf="@+id/activityMain_generateEdtMax" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/activityMain_guideline_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.85" />
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/activityMain_generateEdtMin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="@font/canaro_extra_bold"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="@string/edtDefault"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activityMain_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/activityMain_guideline_2" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/activityMain_guideline_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.65" />
-    </android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/activityMain_generateEdtMax"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="@font/canaro_extra_bold"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="@string/edtDefault"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/activityMain_guideline"
+        app:layout_constraintTop_toTopOf="@+id/activityMain_guideline_2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/activityMain_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/activityMain_guideline_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/activityMain_guideline_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
 </android.support.constraint.ConstraintLayout>

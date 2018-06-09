@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/red_600</color>
-    <color name="colorPrimaryDark">@color/red_900</color>
-    <color name="colorAccent">@color/red_500</color>
+    <color name="colorPrimary">#E53935</color>
+    <color name="colorPrimaryDark">#B71C1C</color>
+    <color name="colorAccent">#F44336</color>
 
-    <color name="showcase">@color/red_800</color>
+    <color name="showcase">#D32F2F</color>
 </resources>
