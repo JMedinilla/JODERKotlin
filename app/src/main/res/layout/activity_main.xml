@@ -123,17 +123,18 @@
             app:rippleColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/activityMain_avLoading"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="8dp"
-        app:indicatorColor="@color/colorPrimary"
-        app:indicatorName="LineSpinFadeLoaderIndicator"
-        app:layout_constraintBottom_toBottomOf="@+id/activityMain_generate"
-        app:layout_constraintEnd_toEndOf="@+id/activityMain_generate"
-        app:layout_constraintStart_toStartOf="@+id/activityMain_generate"
-        app:layout_constraintTop_toTopOf="@+id/activityMain_generate" />
+    <TextView
+        android:id="@+id/activityMain_loading"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:fontFamily="@font/canaro_extra_bold"
+        android:gravity="center"
+        android:text="Please wait"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityMain_generateTxtMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityMain_JODER" />
 
     <com.lid.lib.LabelButtonView
         android:id="@+id/activityMain_generate"

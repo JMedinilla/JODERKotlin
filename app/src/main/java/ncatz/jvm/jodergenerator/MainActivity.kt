@@ -8,10 +8,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(activityMain_toolbar)
         supportActionBar?.title = null
+        activityMain_JODER.movementMethod = ScrollingMovementMethod()
 
         activityMain_actionCopy.setOnClickListener {
             val joder = activityMain_JODER.text.toString()
@@ -62,14 +67,15 @@ class MainActivity : AppCompatActivity() {
             }
             when {
                 min < 5 -> Toast.makeText(this, "Un JODER™ tiene mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
-                min > 15000 -> Toast.makeText(this, "Un JODER™ tiene máximo 15.000 caracteres", Toast.LENGTH_SHORT).show()
+                min > 150000 -> Toast.makeText(this, "Un JODER™ tiene máximo 150000 caracteres", Toast.LENGTH_SHORT).show()
                 max < 5 -> Toast.makeText(this, "Un JODER™ tiene mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
-                max > 15000 -> Toast.makeText(this, "Un JODER™ tiene máximo 15.000 caracteres", Toast.LENGTH_SHORT).show()
+                max > 150000 -> Toast.makeText(this, "Un JODER™ tiene máximo 150000 caracteres", Toast.LENGTH_SHORT).show()
                 min > max -> Toast.makeText(this, "El mínimo es mayor que el máximo", Toast.LENGTH_SHORT).show()
                 else -> {
                     activityMain_generate.isEnabled = false
                     activityMain_generate.visibility = View.GONE
-                    JODER.generate(min, max, this)
+                    val joder = JODER()
+                    joder.generate(min, max)
                     activityMain_JODER.scrollTo(0, 0)
                 }
             }
@@ -83,10 +89,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        launchSequence()
-    }
-
-    private fun launchSequence() {
         val config = ShowcaseConfig()
         config.delay = 100
         config.fadeDuration = 300
@@ -105,13 +107,22 @@ class MainActivity : AppCompatActivity() {
         sequenceMain.start()
     }
 
-    companion object {
-        fun setJODER(joder: String, mainActivity: MainActivity) {
-            mainActivity.runOnUiThread {
-                mainActivity.activityMain_JODER.text = joder
-                mainActivity.activityMain_generate.visibility = View.VISIBLE
-                mainActivity.activityMain_generate.isEnabled = true
-            }
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    fun onJoderEvent(event: JODER.JoderEvent) {
+        runOnUiThread {
+            activityMain_JODER.text = event.joderGenerated
+            activityMain_generate.visibility = View.VISIBLE
+            activityMain_generate.isEnabled = true
         }
     }
 }

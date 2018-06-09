@@ -1,103 +1,53 @@
 package ncatz.jvm.jodergenerator
 
-import android.annotation.SuppressLint
-import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
 import java.util.*
-import java.util.concurrent.ForkJoinPool
-import kotlin.concurrent.thread
 
 class JODER {
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        private lateinit var main: MainActivity
 
-        private var J = ""
-        private var O = ""
-        private var D = ""
-        private var E = ""
-        private var R = ""
-
-        private var JODERbools: BooleanArray = booleanArrayOf(false, false, false, false, false)
-
-        fun generate(min: Int, max: Int, mainActivity: MainActivity) {
-            main = mainActivity
-
-            JODERbools = booleanArrayOf(false, false, false, false, false)
-            J = ""; O = ""; D = ""; E = ""; R = ""
-
-            val Jcount: Int
-            val Ocount: Int
-            val Dcount: Int
-            val Ecount: Int
-            val Rcount: Int
-
+    fun generate(min: Int, max: Int) {
+        Thread(Runnable {
             val length = Random().nextInt((max - min) + 1) + min
             var toUse = length - 5
-            Jcount = Random().nextInt(toUse + 1)
-            toUse -= Jcount
-            Ocount = Random().nextInt(toUse + 1)
-            toUse -= Ocount
-            Dcount = Random().nextInt(toUse + 1)
-            toUse -= Dcount
-            Ecount = Random().nextInt(toUse + 1)
-            toUse -= Ecount
-            Rcount = toUse
 
-            thread(start = true) {
-                var j = 0
-                while (j <= Jcount) {
-                    J += "J"
-                    j++
-                }
-                JODERbools[0] = true
-                checkAllLetters()
-            }
+            val jCount = Random().nextInt(toUse)
+            toUse -= jCount
+            val oCount = Random().nextInt(toUse)
+            toUse -= oCount
+            val dCount = Random().nextInt(toUse)
+            toUse -= dCount
+            val eCount = Random().nextInt(toUse)
+            toUse -= eCount
+            val rCount = toUse
 
-            thread(start = true) {
-                var o = 0
-                while (o <= Ocount) {
-                    O += "O"
-                    o++
-                }
-                JODERbools[1] = true
-                checkAllLetters()
-            }
+            val jChars = CharArray(jCount + 1)
+            val oChars = CharArray(oCount + 1)
+            val dChars = CharArray(dCount + 1)
+            val eChars = CharArray(eCount + 1)
+            val rChars = CharArray(rCount + 1)
 
-            thread(start = true) {
-                var d = 0
-                while (d <= Dcount) {
-                    D += "D"
-                    d++
-                }
-                JODERbools[2] = true
-                checkAllLetters()
-            }
+            Arrays.fill(jChars, 'J')
+            Arrays.fill(oChars, 'O')
+            Arrays.fill(dChars, 'D')
+            Arrays.fill(eChars, 'E')
+            Arrays.fill(rChars, 'R')
 
-            thread(start = true) {
-                var e = 0
-                while (e <= Ecount) {
-                    E += "E"
-                    e++
-                }
-                JODERbools[3] = true
-                checkAllLetters()
-            }
+            val j = String(jChars)
+            val o = String(oChars)
+            val d = String(dChars)
+            val e = String(eChars)
+            val r = String(rChars)
 
-            thread(start = true) {
-                var r = 0
-                while (r <= Rcount) {
-                    R += "R"
-                    r++
-                }
-                JODERbools[4] = true
-                checkAllLetters()
-            }
-        }
+            checkAllLetters(j, o, d, e, r)
+        }).start()
+    }
 
-        private fun checkAllLetters() {
-            if (!JODERbools.contains(false)) {
-                MainActivity.setJODER(J + O + D + E + R, main)
-            }
-        }
+    private fun checkAllLetters(j: String, o: String, d: String, e: String, r: String) {
+        val joderFull = j + o + d + e + r
+        EventBus.getDefault().post(JoderEvent(joderFull))
+    }
+
+    class JoderEvent(joder: String) {
+        var joderGenerated: String = joder
     }
 }
