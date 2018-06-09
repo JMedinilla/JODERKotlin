@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="guillotine_actionbar_background_view_height">35dp</dimen>
+    <dimen name="guillotine_actionbar_background_view_height">?attr/actionBarSize</dimen>
 </resources>

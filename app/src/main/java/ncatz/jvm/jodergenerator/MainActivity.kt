@@ -1,37 +1,32 @@
 package ncatz.jvm.jodergenerator
 
-import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.method.ScrollingMovementMethod
-import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import com.getbase.floatingactionbutton.FloatingActionButton
 import com.lid.lib.LabelButtonView
 import com.wang.avi.AVLoadingIndicatorView
-import com.yalantis.guillotine.animation.GuillotineAnimation
-import com.yalantis.guillotine.interfaces.GuillotineListener
-import kotlinx.android.synthetic.main.guillotine.*
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var root: FrameLayout
+    private lateinit var root: ConstraintLayout
     private lateinit var toolbar: Toolbar
     private lateinit var hamburguer: View
 
-    private lateinit var txtJODER: CanaroText
+    private lateinit var txtJODER: TextView
     private lateinit var btnGenerate: LabelButtonView
     private lateinit var avLoading: AVLoadingIndicatorView
     private lateinit var btnShare: FloatingActionButton
@@ -39,22 +34,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var edtMin: EditText
     private lateinit var edtMax: EditText
 
-    private lateinit var guillotine: View
-    private lateinit var guillotineAnimation: GuillotineAnimation
-    private lateinit var guillotineTwA: LinearLayout
-    private lateinit var guillotineGitKImg: ImageView
-    private lateinit var guillotineGitK: LinearLayout
-    private lateinit var guillotineGitA: LinearLayout
-
     private var sequenceMain: MaterialShowcaseSequence? = null
-    private var sequenceGuillotine: MaterialShowcaseSequence? = null
-
-    private var guillotineOpen: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
+
         initViews()
     }
 
@@ -81,28 +66,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("InflateParams")
     private fun initViews() {
-        root = findViewById(R.id.root)
-        toolbar = findViewById(R.id.toolbar)
-        hamburguer = findViewById(R.id.hamburguer)
+        root = findViewById(R.id.activityMain_parentLayout)
+        toolbar = findViewById(R.id.activityMain_toolbar)
 
         setSupportActionBar(toolbar)
         supportActionBar!!.title = null
 
-        txtJODER = findViewById(R.id.txtJODER)
+        hamburguer = findViewById(R.id.activityMain_toolbarInfo)
+        txtJODER = findViewById(R.id.activityMain_JODER)
         txtJODER.movementMethod = ScrollingMovementMethod()
-        avLoading = findViewById(R.id.avLoading)
-        btnGenerate = findViewById(R.id.btnGenerate)
-        btnShare = findViewById(R.id.actionShare)
-        btnCopy = findViewById(R.id.actionCopy)
-        edtMin = findViewById(R.id.edtMin)
-        edtMax = findViewById(R.id.edtMax)
+        avLoading = findViewById(R.id.activityMain_avLoading)
+        btnGenerate = findViewById(R.id.activityMain_generate)
+        btnShare = findViewById(R.id.activityMain_actionShare)
+        btnCopy = findViewById(R.id.activityMain_actionCopy)
+        edtMin = findViewById(R.id.activityMain_generateEdtMin)
+        edtMax = findViewById(R.id.activityMain_generateEdtMax)
 
         btnCopy.setOnClickListener {
-            if (guillotineOpen)
-                return@setOnClickListener
-
             val joder = txtJODER.text.toString()
             when (joder) {
                 "- - -" -> Toast.makeText(this, "Genera un JODER™ para copiarlo", Toast.LENGTH_SHORT).show()
@@ -115,9 +96,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btnShare.setOnClickListener {
-            if (guillotineOpen)
-                return@setOnClickListener
-
             val joder = txtJODER.text.toString()
             when (joder) {
                 "- - -" -> Toast.makeText(this, "Genera un JODER™ para compartirlo", Toast.LENGTH_SHORT).show()
@@ -132,9 +110,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnGenerate.setOnClickListener {
-            if (guillotineOpen)
-                return@setOnClickListener
-
             val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputManager.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
@@ -161,75 +136,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btnGenerate.setOnLongClickListener {
-            if (!guillotineOpen) {
-                txtJODER.text = "- - -"
-                txtJODER.scrollTo(0, 0)
-            }
+            txtJODER.text = "- - -"
+            txtJODER.scrollTo(0, 0)
             true
-        }
-
-        guillotine = LayoutInflater.from(this).inflate(R.layout.guillotine, null)
-        root.addView(guillotine)
-        guillotineAnimation = GuillotineAnimation.GuillotineBuilder(guillotine, guillotine.findViewById(R.id.toolbarLayout), hamburguer)
-                .setStartDelay(250)
-                .setActionBarViewForAnimation(toolbar)
-                .setGuillotineListener(object : GuillotineListener {
-                    override fun onGuillotineClosed() {
-                        guillotineOpen = false
-
-                        edtMax.isEnabled = true
-                        edtMin.isEnabled = true
-                    }
-
-                    override fun onGuillotineOpened() {
-                        guillotineOpen = true
-
-                        edtMax.isEnabled = false
-                        edtMin.isEnabled = false
-
-                        val config = ShowcaseConfig()
-                        config.delay = 100
-                        config.fadeDuration = 300
-                        config.contentTextColor = Color.WHITE
-                        config.dismissTextColor = Color.WHITE
-                        config.renderOverNavigationBar = true
-                        config.maskColor = ContextCompat.getColor(applicationContext, R.color.showcase)
-                        sequenceGuillotine = MaterialShowcaseSequence(this@MainActivity, "id_guillotine")
-                        sequenceGuillotine!!.setConfig(config)
-                        sequenceGuillotine!!.addSequenceItem(imgAPU, "Este subnormal es el creador original de JODERGenerator para Windows, debajo tienes su Twitter y el código fuente (C#) con el ejecutable para Windows", "SIGUIENTE")
-                        sequenceGuillotine!!.addSequenceItem(canaroGitK, "Si te interesa ver cómo está hecha esta aplicación (en Kotlin), puedes verlo aquí", "JODER")
-                        sequenceGuillotine!!.start()
-                    }
-                })
-                .setClosedOnStart(true)
-                .build()
-
-        guillotineTwA = guillotine.findViewById(R.id.twa)
-        guillotineGitKImg = guillotine.findViewById(R.id.imgJM)
-        guillotineGitK = guillotine.findViewById(R.id.gitk)
-        guillotineGitA = guillotine.findViewById(R.id.gita)
-
-        guillotineGitKImg.setOnClickListener { open("https://github.com/JMedinilla/JODERKotlin") }
-        guillotineGitK.setOnClickListener { open("https://github.com/JMedinilla/JODERKotlin") }
-        guillotineTwA.setOnClickListener { open("https://twitter.com/AlexPowerUp") }
-        guillotineGitA.setOnClickListener { open("https://github.com/alexpowerup/JODERGenerator") }
-    }
-
-    private fun open(url: String) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-    }
-
-    override fun onBackPressed() {
-        if (sequenceGuillotine != null && sequenceGuillotine!!.hasFired()) {
-            when {
-                guillotineOpen -> guillotineAnimation.close()
-                else -> super.onBackPressed()
-            }
-        } else if (sequenceGuillotine == null) {
-            when {
-                guillotineOpen -> guillotineAnimation.close()
-                else -> super.onBackPressed()
-            }
         }
     }
 
