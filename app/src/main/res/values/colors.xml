@@ -3,6 +3,5 @@
     <color name="colorPrimary">#E53935</color>
     <color name="colorPrimaryDark">#B71C1C</color>
     <color name="colorAccent">#F44336</color>
-
-    <color name="showcase">#D32F2F</color>
+    <color name="colorShowcase">#BBF44336</color>
 </resources>

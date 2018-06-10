@@ -9,4 +9,14 @@
     <string name="activityInfo_gitJM">/JMedinilla/JODERKotlin</string>
     <string name="activityInfo_twAPU">/AlexPowerUp</string>
     <string name="activityInfo_gitAPU">/alexpowerup/JODERGenerator</string>
+    <string name="joder">JODER</string>
+    <string name="joderCopied">JODER™ en el portapapeles</string>
+    <string name="joderToCopy">Genera un JODER™ para copiarlo</string>
+    <string name="joderToShare">Genera un JODER™ para compartirlo</string>
+    <string name="minFiveChar">Un JODER™ tiene mínimo 5 caracteres</string>
+    <string name="minHighChar">Un JODER™ tiene máximo 150000 caracteres</string>
+    <string name="maxFiveChar">Un JODER™ tiene mínimo 5 caracteres</string>
+    <string name="maxHighChar">Un JODER™ tiene máximo 150000 caracteres</string>
+    <string name="minAndMaxChar">El mínimo es mayor que el máximo</string>
+    <string name="activityMain_loading">Un momento…</string>
 </resources>

@@ -4,22 +4,30 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener
+import com.github.amlcurran.showcaseview.ShowcaseView
+import com.github.amlcurran.showcaseview.targets.ViewTarget
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val JODER_MAX: Int = 150000
+    }
+
+    private val joder = JODER()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +39,19 @@ class MainActivity : AppCompatActivity() {
         activityMain_actionCopy.setOnClickListener {
             val joder = activityMain_JODER.text.toString()
             when (joder) {
-                "- - -" -> Toast.makeText(this, "Genera un JODER™ para copiarlo", Toast.LENGTH_SHORT).show()
+                "- - -" -> Toast.makeText(this, getString(R.string.joderToCopy), Toast.LENGTH_SHORT).show()
                 else -> {
                     val clipboard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    val clip: ClipData = ClipData.newPlainText("JODER", joder)
+                    val clip: ClipData = ClipData.newPlainText(getString(R.string.joder), joder)
                     clipboard.primaryClip = clip
-                    Toast.makeText(this, "JODER™ en el portapapeles", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.joderCopied), Toast.LENGTH_SHORT).show()
                 }
             }
         }
         activityMain_actionShare.setOnClickListener {
             val joder = activityMain_JODER.text.toString()
             when (joder) {
-                "- - -" -> Toast.makeText(this, "Genera un JODER™ para compartirlo", Toast.LENGTH_SHORT).show()
+                "- - -" -> Toast.makeText(this, getString(R.string.joderToShare), Toast.LENGTH_SHORT).show()
                 else -> {
                     val shareIntent = Intent()
                     shareIntent.action = Intent.ACTION_SEND
@@ -66,15 +74,16 @@ class MainActivity : AppCompatActivity() {
                 max = Integer.parseInt(activityMain_generateEdtMax.text.toString())
             }
             when {
-                min < 5 -> Toast.makeText(this, "Un JODER™ tiene mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
-                min > 150000 -> Toast.makeText(this, "Un JODER™ tiene máximo 150000 caracteres", Toast.LENGTH_SHORT).show()
-                max < 5 -> Toast.makeText(this, "Un JODER™ tiene mínimo 5 caracteres", Toast.LENGTH_SHORT).show()
-                max > 150000 -> Toast.makeText(this, "Un JODER™ tiene máximo 150000 caracteres", Toast.LENGTH_SHORT).show()
-                min > max -> Toast.makeText(this, "El mínimo es mayor que el máximo", Toast.LENGTH_SHORT).show()
+                min < 5 -> Toast.makeText(this, getString(R.string.minFiveChar), Toast.LENGTH_SHORT).show()
+                min > JODER_MAX -> Toast.makeText(this, getString(R.string.minHighChar), Toast.LENGTH_SHORT).show()
+                max < 5 -> Toast.makeText(this, getString(R.string.maxFiveChar), Toast.LENGTH_SHORT).show()
+                max > JODER_MAX -> Toast.makeText(this, getString(R.string.maxHighChar), Toast.LENGTH_SHORT).show()
+                min > max -> Toast.makeText(this, getString(R.string.minAndMaxChar), Toast.LENGTH_SHORT).show()
                 else -> {
+                    activityMain_JODER.text = "- - -"
+                    activityMain_JODER.scrollTo(0, 0)
                     activityMain_generate.isEnabled = false
                     activityMain_generate.visibility = View.GONE
-                    val joder = JODER()
                     joder.generate(min, max)
                     activityMain_JODER.scrollTo(0, 0)
                 }
@@ -85,26 +94,128 @@ class MainActivity : AppCompatActivity() {
             activityMain_JODER.scrollTo(0, 0)
             true
         }
+        activityMain_generateEdtMin.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val number = s.toString().toInt()
+                if (number > JODER_MAX) {
+                    activityMain_generateEdtMin.setText(JODER_MAX.toString())
+                }
+            }
+        })
+        activityMain_generateEdtMax.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val number = s.toString().toInt()
+                if (number > JODER_MAX) {
+                    activityMain_generateEdtMax.setText(JODER_MAX.toString())
+                }
+            }
+
+        })
     }
 
     override fun onResume() {
         super.onResume()
-        val config = ShowcaseConfig()
-        config.delay = 100
-        config.fadeDuration = 300
-        config.contentTextColor = Color.WHITE
-        config.dismissTextColor = Color.WHITE
-        config.renderOverNavigationBar = true
-        config.maskColor = ContextCompat.getColor(this, R.color.showcase)
-        val sequenceMain = MaterialShowcaseSequence(this, "id_showcase")
-        sequenceMain.setConfig(config)
-        sequenceMain.addSequenceItem(activityMain_generate, "Para generar un JODER™ solo tienes que pulsar sobre este señor cabreado", "SIGUIENTE")
-        sequenceMain.addSequenceItem(activityMain_generateEdtMin, "El mínimo de caracteres lo puedes indicar aquí (un JODER™ tiene al menos 5 caracteres)", "SIGUIENTE")
-        sequenceMain.addSequenceItem(activityMain_generateEdtMax, "Y el máximo, lo eliges aquí (un JODER™ tiene máximo 15.000 caracteres)", "SIGUIENTE")
-        sequenceMain.addSequenceItem(activityMain_actionShare, "Con este botón puedes compartir tu exclusivo JODER™ con el resto del mundo", "SIGUIENTE")
-        sequenceMain.addSequenceItem(activityMain_actionCopy, "Y con este copiarlo para compartirlo manualmente", "SIGUIENTE")
-        sequenceMain.addSequenceItem(activityMain_toolbarInfo, "Por último, aquí arriba podrás ver información sobre la aplicación", "JODER")
-        sequenceMain.start()
+        doShowcase()
+    }
+
+    private fun doShowcase() {
+        val activity = this
+        ShowcaseView.Builder(activity).withMaterialShowcase()
+                .setTarget(ViewTarget(R.id.activityMain_generate, activity))
+                .setContentText("Para generar un JODER™ solo tienes que pulsar sobre este señor cabreado")
+                .setShowcaseEventListener(object : OnShowcaseEventListener {
+                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
+                    }
+
+                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
+                        ShowcaseView.Builder(activity).withMaterialShowcase()
+                                .setTarget(ViewTarget(R.id.activityMain_generateEdtMin, activity))
+                                .setContentText("El mínimo de caracteres lo puedes indicar aquí (un JODER™ tiene al menos 5 caracteres")
+                                .setShowcaseEventListener(object : OnShowcaseEventListener {
+                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
+                                    }
+
+                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
+                                        ShowcaseView.Builder(activity).withMaterialShowcase()
+                                                .setTarget(ViewTarget(R.id.activityMain_generateEdtMax, activity))
+                                                .setContentText("Y el máximo, lo eliges aquí (un JODER™ tiene máximo 15.000 caracteres)")
+                                                .setShowcaseEventListener(object : OnShowcaseEventListener {
+                                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
+                                                    }
+
+                                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
+                                                        ShowcaseView.Builder(activity).withMaterialShowcase()
+                                                                .setTarget(ViewTarget(R.id.activityMain_actionShare, activity))
+                                                                .setContentText("Con este botón puedes compartir tu exclusivo JODER™ con el resto del mundo")
+                                                                .setShowcaseEventListener(object : OnShowcaseEventListener {
+                                                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
+                                                                    }
+
+                                                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
+                                                                        ShowcaseView.Builder(activity).withMaterialShowcase()
+                                                                                .setTarget(ViewTarget(R.id.activityMain_actionCopy, activity))
+                                                                                .setContentText("Y con este copiarlo al portapapeles para compartirlo manualmente")
+                                                                                .setShowcaseEventListener(object : OnShowcaseEventListener {
+                                                                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
+                                                                                    }
+
+                                                                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
+                                                                                        ShowcaseView.Builder(activity).withMaterialShowcase()
+                                                                                                .setTarget(ViewTarget(R.id.activityMain_toolbarInfo, activity))
+                                                                                                .setContentText("Por último, aquí arriba podrás ver información sobre la aplicación")
+                                                                                                .build()
+                                                                                    }
+
+                                                                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
+                                                                                    }
+
+                                                                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
+                                                                                    }
+                                                                                }).build()
+                                                                    }
+
+                                                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
+                                                                    }
+
+                                                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
+                                                                    }
+                                                                }).build()
+                                                    }
+
+                                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
+                                                    }
+
+                                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
+                                                    }
+                                                }).build()
+                                    }
+
+                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
+                                    }
+
+                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
+                                    }
+                                }).build()
+                    }
+
+                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
+                    }
+
+                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
+                    }
+                }).build()
     }
 
     override fun onStart() {
@@ -117,12 +228,10 @@ class MainActivity : AppCompatActivity() {
         EventBus.getDefault().unregister(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.ASYNC)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onJoderEvent(event: JODER.JoderEvent) {
-        runOnUiThread {
-            activityMain_JODER.text = event.joderGenerated
-            activityMain_generate.visibility = View.VISIBLE
-            activityMain_generate.isEnabled = true
-        }
+        activityMain_JODER.text = event.joderGenerated
+        activityMain_generate.visibility = View.VISIBLE
+        activityMain_generate.isEnabled = true
     }
 }

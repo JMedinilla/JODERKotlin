@@ -87,7 +87,7 @@
         android:text="@string/JODERDefault"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_guideline_3"
-        app:layout_constraintEnd_toStartOf="@+id/activityMain_actionLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityMain_appBarLayout" />
 
@@ -95,18 +95,15 @@
         android:id="@+id/activityMain_actionLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/activityMain_JODER"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityMain_appBarLayout">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/activityMain_JODER"
+        app:layout_constraintTop_toBottomOf="@+id/activityMain_JODER">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/activityMain_actionShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginBottom="7dp"
+            android:layout_margin="4dp"
             android:src="@drawable/share_variant"
             app:fabSize="mini"
             app:rippleColor="@color/colorPrimaryDark" />
@@ -115,39 +112,22 @@
             android:id="@+id/activityMain_actionCopy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
+            android:layout_margin="4dp"
             android:src="@drawable/clipboard_outline"
             app:fabSize="mini"
             app:rippleColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/activityMain_loading"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:fontFamily="@font/canaro_extra_bold"
-        android:gravity="center"
-        android:text="Please wait"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/activityMain_generateTxtMax"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityMain_JODER" />
-
-    <com.lid.lib.LabelButtonView
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/activityMain_generate"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/icon"
-        app:label_backgroundColor="@color/colorPrimary"
-        app:label_distance="24dp"
-        app:label_height="24dp"
-        app:label_orientation="RIGHT_BOTTOM"
-        app:label_text="JODER"
-        app:label_textSize="12sp"
+        android:visibility="visible"
+        app:fabSize="normal"
+        android:scaleType="center"
+        android:src="@drawable/icon_transparent"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_generateTxtMax"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,22 +135,24 @@
 
     <TextView
         android:id="@+id/activityMain_generateTxtMin"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/canaro_extra_bold"
         android:text="@string/txtMin"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMin"
+        app:layout_constraintEnd_toEndOf="@+id/activityMain_generateEdtMin"
         app:layout_constraintStart_toStartOf="@+id/activityMain_generateEdtMin" />
 
     <TextView
         android:id="@+id/activityMain_generateTxtMax"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/canaro_extra_bold"
         android:text="@string/txtMax"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMax"
+        app:layout_constraintEnd_toEndOf="@+id/activityMain_generateEdtMax"
         app:layout_constraintStart_toStartOf="@+id/activityMain_generateEdtMax" />
 
     <android.support.design.widget.TextInputEditText
@@ -178,7 +160,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
         android:fontFamily="@font/canaro_extra_bold"
         android:gravity="center"
         android:inputType="number"
@@ -192,8 +176,10 @@
         android:id="@+id/activityMain_generateEdtMax"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
         android:fontFamily="@font/canaro_extra_bold"
         android:gravity="center"
         android:inputType="number"
@@ -222,5 +208,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.7" />
 </android.support.constraint.ConstraintLayout>
