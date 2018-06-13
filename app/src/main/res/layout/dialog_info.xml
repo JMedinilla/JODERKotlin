@@ -4,7 +4,7 @@
     android:id="@+id/activityInfo_parentLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/background"
+    android:background="@drawable/dialog_background"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:paddingBottom="8dp">
@@ -17,6 +17,7 @@
         android:fontFamily="@font/canaro_extra_bold"
         android:gravity="center"
         android:text="@string/activityInfoxfmghf_textInfo"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +44,7 @@
         android:drawablePadding="8dp"
         android:fontFamily="@font/canaro_extra_bold"
         android:text="@string/activityInfo_gitJM"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityInfo_imageJM" />
@@ -69,6 +71,7 @@
         android:drawablePadding="8dp"
         android:fontFamily="@font/canaro_extra_bold"
         android:text="@string/activityInfo_twAPU"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityInfo_imageAPU" />
@@ -83,6 +86,7 @@
         android:drawablePadding="8dp"
         android:fontFamily="@font/canaro_extra_bold"
         android:text="@string/activityInfo_gitAPU"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityInfo_twAPU" />

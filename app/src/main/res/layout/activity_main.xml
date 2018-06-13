@@ -49,6 +49,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/canaro_extra_bold"
                         android:text="@string/app_name"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp" />
 
                     <TextView
@@ -58,6 +59,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/canaro_extra_bold"
                         android:text="@string/toolbarsub"
+                        android:textColor="@android:color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -85,6 +87,7 @@
         android:padding="14dp"
         android:scrollbars="vertical"
         android:text="@string/JODERDefault"
+        android:textColor="@android:color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_guideline_3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,10 +127,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/icon"
-        android:visibility="visible"
-        app:fabSize="normal"
         android:scaleType="center"
         android:src="@drawable/icon_transparent"
+        android:visibility="visible"
+        app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_generateTxtMax"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +142,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/canaro_extra_bold"
         android:text="@string/txtMin"
+        android:textColor="@android:color/white"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMin"
         app:layout_constraintEnd_toEndOf="@+id/activityMain_generateEdtMin"
@@ -150,6 +154,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/canaro_extra_bold"
         android:text="@string/txtMax"
+        android:textColor="@android:color/white"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/activityMain_generateEdtMax"
         app:layout_constraintEnd_toEndOf="@+id/activityMain_generateEdtMax"
@@ -167,6 +172,7 @@
         android:gravity="center"
         android:inputType="number"
         android:text="@string/edtDefault"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/activityMain_guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -184,6 +190,7 @@
         android:gravity="center"
         android:inputType="number"
         android:text="@string/edtDefault"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/activityMain_guideline"

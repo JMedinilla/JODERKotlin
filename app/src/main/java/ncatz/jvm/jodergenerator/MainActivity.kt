@@ -1,16 +1,22 @@
 package ncatz.jvm.jodergenerator
 
+import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -119,6 +125,32 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+        activityMain_toolbarInfo.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.dialog_info)
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            val githubJM = dialog.findViewById<TextView>(R.id.activityInfo_gitJM)
+            val githubAPU = dialog.findViewById<TextView>(R.id.activityInfo_gitAPU)
+            val twitterAPU = dialog.findViewById<TextView>(R.id.activityInfo_twAPU)
+            val intent = Intent(Intent.ACTION_VIEW)
+            githubJM.setOnClickListener {
+                val url = "https://github.com/JMedinilla"
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            }
+            githubAPU.setOnClickListener {
+                val url = "https://github.com/alexpowerup"
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            }
+            twitterAPU.setOnClickListener {
+                val url = "https://twitter.com/alexpowerup"
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            }
+            dialog.show()
+        }
     }
 
     override fun onStart() {
