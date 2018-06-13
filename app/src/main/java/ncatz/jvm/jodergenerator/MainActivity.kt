@@ -9,13 +9,9 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
-import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.github.amlcurran.showcaseview.OnShowcaseEventListener
-import com.github.amlcurran.showcaseview.ShowcaseView
-import com.github.amlcurran.showcaseview.targets.ViewTarget
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -123,99 +119,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        doShowcase()
-    }
-
-    private fun doShowcase() {
-        val activity = this
-        ShowcaseView.Builder(activity).withMaterialShowcase()
-                .setTarget(ViewTarget(R.id.activityMain_generate, activity))
-                .setContentText("Para generar un JODER™ solo tienes que pulsar sobre este señor cabreado")
-                .setShowcaseEventListener(object : OnShowcaseEventListener {
-                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
-                    }
-
-                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
-                        ShowcaseView.Builder(activity).withMaterialShowcase()
-                                .setTarget(ViewTarget(R.id.activityMain_generateEdtMin, activity))
-                                .setContentText("El mínimo de caracteres lo puedes indicar aquí (un JODER™ tiene al menos 5 caracteres")
-                                .setShowcaseEventListener(object : OnShowcaseEventListener {
-                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
-                                    }
-
-                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
-                                        ShowcaseView.Builder(activity).withMaterialShowcase()
-                                                .setTarget(ViewTarget(R.id.activityMain_generateEdtMax, activity))
-                                                .setContentText("Y el máximo, lo eliges aquí (un JODER™ tiene máximo 15.000 caracteres)")
-                                                .setShowcaseEventListener(object : OnShowcaseEventListener {
-                                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
-                                                    }
-
-                                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
-                                                        ShowcaseView.Builder(activity).withMaterialShowcase()
-                                                                .setTarget(ViewTarget(R.id.activityMain_actionShare, activity))
-                                                                .setContentText("Con este botón puedes compartir tu exclusivo JODER™ con el resto del mundo")
-                                                                .setShowcaseEventListener(object : OnShowcaseEventListener {
-                                                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
-                                                                    }
-
-                                                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
-                                                                        ShowcaseView.Builder(activity).withMaterialShowcase()
-                                                                                .setTarget(ViewTarget(R.id.activityMain_actionCopy, activity))
-                                                                                .setContentText("Y con este copiarlo al portapapeles para compartirlo manualmente")
-                                                                                .setShowcaseEventListener(object : OnShowcaseEventListener {
-                                                                                    override fun onShowcaseViewShow(showcaseView: ShowcaseView?) {
-                                                                                    }
-
-                                                                                    override fun onShowcaseViewHide(showcaseView: ShowcaseView?) {
-                                                                                        ShowcaseView.Builder(activity).withMaterialShowcase()
-                                                                                                .setTarget(ViewTarget(R.id.activityMain_toolbarInfo, activity))
-                                                                                                .setContentText("Por último, aquí arriba podrás ver información sobre la aplicación")
-                                                                                                .build()
-                                                                                    }
-
-                                                                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
-                                                                                    }
-
-                                                                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
-                                                                                    }
-                                                                                }).build()
-                                                                    }
-
-                                                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
-                                                                    }
-
-                                                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
-                                                                    }
-                                                                }).build()
-                                                    }
-
-                                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
-                                                    }
-
-                                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
-                                                    }
-                                                }).build()
-                                    }
-
-                                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
-                                    }
-
-                                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
-                                    }
-                                }).build()
-                    }
-
-                    override fun onShowcaseViewDidHide(showcaseView: ShowcaseView?) {
-                    }
-
-                    override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {
-                    }
-                }).build()
     }
 
     override fun onStart() {
